@@ -9,7 +9,12 @@ load_dotenv()
 
 
 def index(request):
-    API_KEY = os.getenv('API_KEY')
-    base_wether_url = f'https://api.pirateweather.net/forecast/{API_KEY}/'
+    WEATHER_API_KEY = os.getenv('WEATHER_API_KEY')
+    GEOCODE_API_KEY = os.getenv('GEOCODE_API_KEY')
+
+    # порядок формата - API key, latitude, longitude
+    weather_url = 'https://api.pirateweather.net/forecast/{}/{},{}?exclude=alerts,currently,minutely,hourly&units=si'
+    # порядок формата - Город, API key
+    geocode_url = 'https://geocode.maps.co/search?q={}&api_key={}'
 
 
