@@ -10,3 +10,6 @@ load_dotenv()
 
 def index(request):
     API_KEY = os.getenv('API_KEY')
+    base_wether_url = f'https://api.pirateweather.net/forecast/{API_KEY}/'
+
+
