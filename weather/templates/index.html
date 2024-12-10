@@ -1,10 +1,35 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Weather app</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="city" placeholder="City">
+        <button type="submit">Get weather</button>
+    </form>
+    {% if current_weather_data %}
+        <div class="city-container">
+            <h1> {{ city }}</h1>
+            <h2>{{ current_weather_data.temperature }}C</h2>
+            <p>{{ current_weather_data.description }}</p>
+            <img src="{% static 'weather_icons/' %}{{current_weather_data.icon}}.png" alt="{{ current_weather_data.description }}">
+            <h2>Forecast for the next week</h2>
+            <div class="forecast-container">
+                {% for forecast in daily_forecast %}
+                <div class="forecast">
+                    <h3>{{ forecast.day }}</h3>
+                    <p>{{ forecast.min_temp }}C to {{ forecast.max_temp }}C</p>
+                    <p>{{ forecast.description }}</p>
+                    <img src="{% static 'weather_icons/' %}{{forecast.icon}}.png" alt="{{ forecast.description }}">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
 </body>
 </html>

@@ -24,7 +24,8 @@ def index(request):
 
         context = {
             'current_weather_data': current_weather_data,
-            'daily_forecast': daily_forecast
+            'daily_forecast': daily_forecast,
+            'city': city
         }
 
         return render(request, 'index.html', context)
@@ -46,7 +47,7 @@ def fetch_forecast(city, weather_url, geocode_url):
     }
 
     daily_forecast = []
-    for daily_data in weather_response['daily']['data'][:5]:
+    for daily_data in weather_response['daily']['data'][1:]:
         daily_forecast.append({
             "day": (datetime.fromtimestamp(daily_data['time']).strftime("%A")),
             'min_temp': daily_data['temperatureMin'],
