@@ -10,6 +10,10 @@
     <form method="post">
         {% csrf_token %}
         <input type="text" name="city" placeholder="City">
+        <select name="language" id="language">
+            <option value="rus">Русский</option>
+            <option value="eng">English</option>
+        </select>
         <button type="submit">Get weather</button>
     </form>
     {% if current_weather_data %}
@@ -18,7 +22,11 @@
             <h2>{{ current_weather_data.temperature }}C</h2>
             <p>{{ current_weather_data.description }}</p>
             <img src="{% static 'weather_icons/' %}{{current_weather_data.icon}}.png" alt="{{ current_weather_data.description }}">
-            <h2>Forecast for the next week</h2>
+            {% if language == 'eng' %}
+                <h2>Forecast for the next week</h2>
+            {% else %}
+                <h2>Прогноз на следующую неделю</h2>
+            {% endif %}
             <div class="forecast-container">
                 {% for forecast in daily_forecast %}
                 <div class="forecast">
